@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Maquillage Salon - Client Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LEFT-SIDE DOCKED TAB FOR BOOK AN APPOINTMENT -->
+  <button type="button" class="left-booking-tab" id="open-booking-tab" aria-haspopup="dialog" aria-controls="booking-modal">
+    <span class="tab-icon">&#128197;</span>
+    <span>Book an Appointment</span>
+  </button>
+
+  <header class="navbar">
+    <div class="brand-lockup">
+      <div class="nav-monogram">LM</div>
+      <div class="brand">
+        Le Maquillage Salon
+        <span>Client Portal</span>
+      </div>
+    </div>
+    <div class="nav-user">
+      <span class="nav-username">Sample Client</span>
+      <span class="role-tag">Client</span>
+      <a href="index.html" class="btn btn-outline">Log Out</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- SALON WELCOME BANNER & QUICK NAVIGATION -->
+    <section class="portal-hero">
+      <div class="portal-hero-text">
+        <span class="portal-eyebrow">Beauty & Hair Studio</span>
+        <h1>Your Personal Salon Experience</h1>
+        <p>Explore our salon services and prices, reserve your preferred stylist, and track your visit in real time.</p>
+      </div>
+      <nav class="portal-nav-pills" aria-label="Client sections">
+        <a href="#hairstyle-card" class="nav-pill">Services & Prices</a>
+        <button type="button" class="nav-pill nav-pill-btn" data-open-booking>Book an Appointment</button>
+        <a href="#sec-queue" class="nav-pill">Live Queue</a>
+        <a href="#gallery-card" class="nav-pill">Before & After</a>
+        <a href="#sec-appointments" class="nav-pill">My Bookings</a>
+        <a href="#sec-my-profile" class="nav-pill">My Profile</a>
+      </nav>
+    </section>
+
+    <!-- [SPRINT 1 - ID 003 & SPRINT 3 - ID 007] SERVICES & PRICES (3x3 PAGINATED GRID) -->
+    <section class="card" id="hairstyle-card">
+      <div class="card-header">
+        <span class="card-kicker">Services & Prices</span>
+        <h2>Services & Prices</h2>
+      </div>
+
+      <div class="notice" id="hs-faceshape-note"></div>
+
+      <form id="hs-form" action="#" method="post">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hs-category">Category</label>
+            <select id="hs-category" name="category">
+              <option value="">All Categories</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Others">Others (All)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="hs-length">Preferred Hair Length</label>
+            <select id="hs-length" name="hair_length">
+              <option value="Any">No preference</option>
+              <option value="Short">Short</option>
+              <option value="Medium">Medium</option>
+              <option value="Long">Long</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button type="submit" class="btn btn-primary" style="width: auto;">Show Recommendations</button>
+          <button type="button" class="btn btn-outline" id="hs-show-all-btn">Show All</button>
+        </div>
+      </form>
+
+      <div class="notice" id="hs-feedback" style="display: none; margin-top: 1rem;"></div>
+      <div class="notice" id="hs-selected" style="display: none; margin-top: 1rem;"></div>
+
+      <!-- 3 Columns x 3 Rows Paginated Grid -->
+      <div class="style-grid" id="hs-results"></div>
+
+      <!-- Pagination Controls -->
+      <div class="pagination-bar" id="hs-pagination"></div>
+    </section>
+
+    <!-- [SPRINT 2 - ID 020] QUEUE STATUS & ESTIMATED WAITING TIME -->
+    <section class="card" id="sec-queue">
+      <div class="card-header">
+        <span class="card-kicker">Real-Time Tracker</span>
+        <h2>Queue Status & Waiting Time</h2>
+        <p>Updates automatically while this page is open.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Visit</th>
+              <th>Queue #</th>
+              <th>Status</th>
+              <th>Clients Ahead</th>
+              <th>Est. Wait</th>
+              <th>Est. Turn</th>
+            </tr>
+          </thead>
+          <tbody id="client-queue-body">
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notice" style="margin-top: 1rem; margin-bottom: 0;">
+        Waiting times are estimates based on the current queue and service durations. They may change during the day.
+      </div>
+    </section>
+
+    <!-- [SPRINT 3 - ID 022] BEFORE & AFTER GALLERY -->
+    <section class="card" id="gallery-card">
+      <div class="card-header">
+        <span class="card-kicker">Transformation Lookbook</span>
+        <h2>Before & After Gallery</h2>
+        <p>Photos of your hair services added by your stylist. <span id="gallery-count"></span></p>
+      </div>
+
+      <div class="form-row" style="margin-bottom: 1rem;">
+        <div class="form-group">
+          <label for="gallery-view-filter">Show</label>
+          <select id="gallery-view-filter">
+            <option value="">All photos</option>
+            <option value="Before">Before photos</option>
+            <option value="After">After photos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="photo-grid" id="gallery-grid"></div>
+    </section>
+
+    <!-- [SPRINT 1 - ID 002 & SPRINT 2 - ID 021] MY APPOINTMENTS (CANCEL / RESCHEDULE) -->
+    <section class="card" id="sec-appointments">
+      <div class="card-header">
+        <span class="card-kicker">Booking History</span>
+        <h2>My Appointments</h2>
+        <p>Manage your upcoming visits, reschedule time slots, or review past services.</p>
+      </div>
+
+      <div class="notice" id="appt-feedback" style="display: none;"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Hairstyle & Services</th>
+              <th>Stylist</th>
+              <th>Schedule</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th>Payment</th>
+            </tr>
+          </thead>
+          <tbody id="client-appointments-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- [SPRINT 4] MY PROFILE (CLIENT SETS UP THEIR OWN DETAILS) -->
+    <section class="card" id="sec-my-profile">
+      <div class="card-header">
+        <span class="card-kicker">Account Settings</span>
+        <h2>My Profile</h2>
+        <p>Keep your contact details up to date so the salon can reach you about your bookings.</p>
+      </div>
+
+      <form id="my-profile-form" action="#" method="post">
+        <div class="notice" id="mp-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mp-fullname">Full Name</label>
+            <input type="text" id="mp-fullname" maxlength="150" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="mp-username">Username</label>
+            <input type="text" id="mp-username" readonly>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mp-email">Email Address</label>
+            <input type="text" id="mp-email" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="mp-phone">Phone Number</label>
+            <input type="tel" id="mp-phone" autocomplete="tel" required>
+          </div>
+        </div>
+
+        <p style="font-size: 0.88rem; margin-bottom: 1rem;">
+          <strong>Face shape:</strong> <span id="mp-faceshape"></span>
+        </p>
+
+        <button type="submit" class="btn btn-primary" style="width: auto;">Save Profile</button>
+      </form>
+
+      <div class="sub-divider">
+        <h3>Change Password</h3>
+        <form id="mp-password-form" action="#" method="post" autocomplete="off">
+          <div class="notice" id="mp-password-feedback" style="display: none;"></div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mp-currentpass">Current Password</label>
+              <input type="password" id="mp-currentpass" autocomplete="current-password">
+            </div>
+            <div class="form-group">
+              <label for="mp-newpass">New Password</label>
+              <input type="password" id="mp-newpass" autocomplete="new-password" placeholder="At least 6 characters">
+            </div>
+            <div class="form-group">
+              <label for="mp-confirmpass">Confirm New Password</label>
+              <input type="password" id="mp-confirmpass" autocomplete="new-password">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-outline">Update Password</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- [SPRINT 2 - ID 021] RESCHEDULE PANEL -->
+    <section class="card" id="reschedule-card" style="display: none;">
+      <div class="card-header">
+        <span class="card-kicker">Schedule Adjustment</span>
+        <h2>Reschedule Appointment</h2>
+        <p id="resched-info"></p>
+      </div>
+
+      <form id="reschedule-form" action="#" method="post">
+        <div class="notice" id="resched-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resched-date">New Date</label>
+            <input type="date" id="resched-date" name="new_date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="resched-time">New Time Slot</label>
+            <select id="resched-time" name="new_time" required>
+              <option value="">-- Select time --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button type="submit" class="btn btn-primary" style="width: auto;">Save New Schedule</button>
+          <button type="button" class="btn btn-outline" id="resched-close">Keep Current Schedule</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- [SPRINT 1 - ID 002] BOOK AN APPOINTMENT MODAL (NEW BACKGROUND OVERLAY) -->
+  <div class="modal-backdrop" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" hidden>
+    <div class="modal-dialog">
+      <div class="modal-top">
+        <div>
+          <span class="card-kicker">Reservations</span>
+          <h2 id="booking-modal-title">Book an Appointment</h2>
+          <p class="modal-subtitle">Choose your preferred hairstyle, stylist, date, and open time slot.</p>
+        </div>
+        <button type="button" class="modal-close" id="close-booking-modal" aria-label="Close booking window">&times;</button>
+      </div>
+
+      <form id="booking-form" action="#" method="post">
+        <div class="form-group">
+          <label for="book-hairstyle">Select Hairstyle</label>
+          <select id="book-hairstyle" name="hairstyle_id" required>
+            <option value="">-- Choose a hairstyle --</option>
+          </select>
+        </div>
+
+        <div class="notice" id="book-style-summary" style="display: none;"></div>
+
+        <div class="form-group">
+          <label for="book-stylist">Preferred Stylist</label>
+          <select id="book-stylist" name="stylist_id" required>
+            <option value="">-- Choose a stylist --</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="book-date">Preferred Date</label>
+            <input type="date" id="book-date" name="appointment_date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="book-time">Available Time Slot</label>
+            <select id="book-time" name="appointment_time" required>
+              <option value="">-- Select time --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="notice" id="slot-feedback"></div>
+
+        <div class="action-group" style="justify-content: flex-end;">
+          <button type="button" class="btn btn-outline" id="cancel-booking-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="width: auto;">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="payment-modal" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title" hidden>
+    <div class="modal-dialog">
+      <div class="modal-top">
+        <div><span class="card-kicker">Payment</span><h2 id="payment-modal-title">Pay for Completed Service</h2></div>
+        <button type="button" class="modal-close" id="close-payment-modal" aria-label="Close payment window">&times;</button>
+      </div>
+      <form id="client-payment-form">
+        <div class="notice" id="client-payment-summary"></div>
+        <div class="form-group">
+          <label for="client-payment-method">Payment Method</label>
+          <select id="client-payment-method" required>
+            <option value="">-- Choose payment method --</option>
+            <option value="Cash">Cash</option>
+            <option value="GCash">GCash</option>
+            <option value="Card">Card</option>
+          </select>
+        </div>
+        <div class="action-group" style="justify-content:flex-end;">
+          <button type="button" class="btn btn-outline" id="cancel-client-payment">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="width:auto;">Confirm Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

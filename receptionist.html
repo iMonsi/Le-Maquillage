@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Maquillage Salon - Front Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="brand-lockup">
+      <div class="nav-monogram">LM</div>
+      <div class="brand">
+        Le Maquillage Salon
+        <span>Front Desk & Scheduling</span>
+      </div>
+    </div>
+    <div class="nav-user">
+      <span class="nav-username">Front Desk</span>
+      <span class="role-tag">Receptionist</span>
+      <a href="index.html" class="btn btn-outline">Log Out</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- FRONT DESK BANNER & QUICK NAVIGATION -->
+    <section class="portal-hero">
+      <div class="portal-hero-text">
+        <span class="portal-eyebrow">Salon Operations</span>
+        <h1>Front Desk & Client Flow</h1>
+        <p>Coordinate daily appointments, manage walk-in queues, update client records, monitor stock levels, and review salon reports.</p>
+      </div>
+      <nav class="portal-nav-pills" aria-label="Receptionist sections">
+        <a href="#sec-daily" class="nav-pill">Daily Appointments</a>
+        <a href="#sec-walkin" class="nav-pill">Walk-In Queue</a>
+        <a href="#sec-profiles" class="nav-pill">Client Profiles</a>
+        <a href="#sec-inventory" class="nav-pill">Inventory</a>
+        <a href="#sec-schedules" class="nav-pill">Stylist Schedules</a>
+        <a href="#sec-breaks" class="nav-pill">Hours & Breaks</a>
+        <a href="#sec-sales-report" class="nav-pill">Sales & Services</a>
+        <a href="#sec-trends-report" class="nav-pill">Trends & Peak Hours</a>
+        <a href="#sec-payments" class="nav-pill">Payments</a>
+      </nav>
+    </section>
+
+    <!-- [SPRINT 2 - ID 003] VIEW DAILY APPOINTMENTS -->
+    <section class="card" id="sec-daily">
+      <div class="card-header">
+        <span class="card-kicker">Appointment Log</span>
+        <h2>Daily Appointments</h2>
+        <p>Review all scheduled client bookings for a selected date.</p>
+      </div>
+
+      <form class="form-row" style="margin-bottom: 1rem;" action="#" method="get">
+        <div class="form-group">
+          <label for="daily-appt-date">Appointment Date</label>
+          <input type="date" id="daily-appt-date" name="daily_date">
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Booking ID</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Client</th>
+              <th>Service</th>
+              <th>Stylist</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="daily-appointments-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- [SPRINT 2 - ID 004 & ID 005] REGISTER, VIEW & MANAGE WALK-IN CLIENTS -->
+    <section class="card" id="sec-walkin">
+      <div class="card-header">
+        <span class="card-kicker">Floor Queue</span>
+        <h2>Walk-In Queue</h2>
+        <p>Register walk-in guests, organize queue order, and track live estimated wait times.</p>
+      </div>
+
+      <!-- [SPRINT 2 - ID 005] Register Walk-In Client Form -->
+      <form id="walkin-form" action="#" method="post">
+        <div class="notice" id="walkin-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="walkin-client-name">Client Name</label>
+            <input type="text" id="walkin-client-name" name="client_name" placeholder="Enter walk-in client's full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="open-walkin-services-btn">Service / Hairstyle</label>
+            <input type="hidden" id="walkin-service" name="hairstyle_id">
+            <button type="button" class="btn btn-outline walkin-picker-btn" id="open-walkin-services-btn">
+              <span id="walkin-picker-label">View Services &amp; Prices</span>
+              <span class="picker-chevron" aria-hidden="true">&#9662;</span>
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label for="walkin-stylist">Assigned Stylist</label>
+            <select id="walkin-stylist" name="stylist_id" required>
+              <option value="">-- Choose an available stylist --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="notice" id="walkin-style-summary" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary">Register Walk-In Client</button>
+      </form>
+
+      <!-- [SPRINT 2 - ID 004 & ID 005] Current Walk-In Clients Table -->
+      <div class="sub-divider">
+        <h3>Clients in Queue & Upcoming Bookings</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Queue #</th>
+                <th>Client Name</th>
+                <th>Type</th>
+                <th>Service</th>
+                <th>Assigned Stylist</th>
+                <th>Arrival / Schedule</th>
+                <th>Est. Wait</th>
+                <th>Queue Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="walkin-clients-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- [SPRINT 2 - ID 023] CLIENT PROFILES -->
+    <section class="card" id="sec-profiles">
+      <div class="card-header">
+        <span class="card-kicker">Client Directory</span>
+        <h2>Client Profiles</h2>
+        <p id="profiles-scope"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="client-search">Search Clients</label>
+        <input type="search" id="client-search" placeholder="Name, phone number, email, or username" autocomplete="off">
+      </div>
+
+      <div class="notice" id="profile-feedback" style="display: none;"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Client Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Completed Visits</th>
+              <th>Profile</th>
+            </tr>
+          </thead>
+          <tbody id="client-results-body">
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-divider" id="client-profile-panel" style="display: none;">
+        <h3 id="profile-title">Client Profile</h3>
+
+        <form id="client-profile-form" action="#" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pf-fullname">Full Name</label>
+              <input type="text" id="pf-fullname" name="full_name">
+            </div>
+            <div class="form-group">
+              <label for="pf-phone">Phone Number</label>
+              <input type="text" id="pf-phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="pf-email">Email Address</label>
+              <input type="text" id="pf-email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="pf-faceshape">Face Shape</label>
+              <select id="pf-faceshape" name="face_shape"></select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pf-preferences">Hairstyle Preferences</label>
+            <textarea id="pf-preferences" name="hairstyle_preferences" maxlength="500"></textarea>
+          </div>
+
+          <div class="action-group">
+            <button type="submit" class="btn btn-primary" style="width: auto;">Save Changes</button>
+            <button type="button" class="btn btn-outline" id="pf-close">Close Profile</button>
+          </div>
+        </form>
+
+        <div class="sub-divider">
+          <h3>Service & Appointment History</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Service</th>
+                  <th>Stylist</th>
+                  <th>Status</th>
+                  <th>Service Notes</th>
+                </tr>
+              </thead>
+              <tbody id="client-history-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [SPRINT 4 - ID 025] RECORD AND PROCESS PAYMENTS -->
+    <section class="card" id="sec-payments">
+      <div class="card-header">
+        <span class="card-kicker">Payment Processing</span>
+        <h2>Payments</h2>
+        <p>Record payments for completed salon services.</p>
+      </div>
+
+      <form id="receptionist-payment-form" action="#" method="post">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="payment-service-select">Completed Service</label>
+            <select id="payment-service-select" required>
+              <option value="">-- Choose a completed service --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="payment-method-select">Payment Method</label>
+            <select id="payment-method-select" required>
+              <option value="">-- Choose payment method --</option>
+              <option value="Cash">Cash</option>
+              <option value="GCash">GCash</option>
+              <option value="Card">Card</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:auto;">Record Payment</button>
+      </form>
+
+      <div class="sub-divider">
+        <h3>Payment Records</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ref #</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="payment-records-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- [SPRINT 3 - ID 015] MONITOR SALON PRODUCT INVENTORY LEVELS -->
+    <section class="card" id="sec-inventory">
+      <div class="card-header">
+        <span class="card-kicker">Supply Tracking</span>
+        <h2>Inventory Monitoring</h2>
+        <p id="inv-counts"></p>
+      </div>
+
+      <div class="notice" id="inv-summary"></div>
+
+      <div class="form-row" style="margin-bottom: 1rem;">
+        <div class="form-group">
+          <label for="inv-search">Search Products</label>
+          <input type="search" id="inv-search" placeholder="Product name or category" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="inv-filter">Show</label>
+          <select id="inv-filter">
+            <option value="all">All products</option>
+            <option value="needs">Needs replenishment (low or out)</option>
+            <option value="out">Out of stock only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>In Stock</th>
+              <th>Reorder Level</th>
+              <th>Unit Cost</th>
+              <th>Status</th>
+              <th>Replenishment</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- [SPRINT 1 - ID 011] VIEW STYLIST SCHEDULES AND AVAILABILITY -->
+    <section class="card" id="sec-schedules">
+      <div class="card-header">
+        <span class="card-kicker">Staff Availability</span>
+        <h2>Stylist Schedules & Availability</h2>
+        <p>Inspect occupied appointments and open booking slots for each stylist.</p>
+      </div>
+
+      <form class="form-row" style="margin-bottom: 1rem;" action="#" method="get">
+        <div class="form-group">
+          <label for="inspect-date">Inspect Date</label>
+          <input type="date" id="inspect-date" name="date">
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Stylist</th>
+              <th>Working Hours</th>
+              <th>Break Time</th>
+              <th>Occupied Slots</th>
+              <th>Available Slots</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="stylist-schedules-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- [SPRINT 1 - ID 012] SET STYLIST BREAK TIMES AND AVAILABILITY SCHEDULES -->
+    <section class="card" id="sec-breaks">
+      <div class="card-header">
+        <span class="card-kicker">Shift Configuration</span>
+        <h2>Set Stylist Break Times & Availability</h2>
+        <p>Adjust working hours, daily break windows, and booking availability.</p>
+      </div>
+
+      <form id="stylist-schedule-form" action="#" method="post">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sched-stylist">Select Stylist</label>
+            <select id="sched-stylist" name="user_id" required>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sched-status">Availability Status</label>
+            <select id="sched-status" name="is_active" required>
+              <option value="1">Available for Bookings</option>
+              <option value="0">Unavailable / Off-Duty</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="work-start">Work Start Time</label>
+            <input type="time" id="work-start" name="work_start" value="09:00" required>
+          </div>
+
+          <div class="form-group">
+            <label for="work-end">Work End Time</label>
+            <input type="time" id="work-end" name="work_end" value="18:00" required>
+          </div>
+
+          <div class="form-group">
+            <label for="break-start">Break Start Time</label>
+            <input type="time" id="break-start" name="break_start" value="12:00" required>
+          </div>
+
+          <div class="form-group">
+            <label for="break-end">Break End Time</label>
+            <input type="time" id="break-end" name="break_end" value="13:00" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Schedule Changes</button>
+      </form>
+    </section>
+
+    <!-- [SPRINT 4 - ID 013] MONITOR DAILY SALES AND SERVICE REPORTS -->
+    <section class="card" id="sec-sales-report">
+      <div class="card-header">
+        <span class="card-kicker">Performance & Revenue</span>
+        <h2>Daily Sales & Service Reports</h2>
+        <p>Track recorded sales, salon revenue, and completed services for a selected period.</p>
+      </div>
+
+      <form id="sales-report-form" action="#" method="get">
+        <div class="notice" id="sales-report-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sales-period-preset">Report Period</label>
+            <select id="sales-period-preset">
+              <option value="today">Today</option>
+              <option value="week">Last 7 Days</option>
+              <option value="month" selected>This Month</option>
+              <option value="all">All Recorded History</option>
+              <option value="custom">Custom Date Range</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sales-start-date">From Date</label>
+            <input type="date" id="sales-start-date" name="sales_start_date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="sales-end-date">To Date</label>
+            <input type="date" id="sales-end-date" name="sales_end_date" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: auto;">View Sales & Service Report</button>
+      </form>
+
+      <div class="report-kpi-grid" id="sales-kpi-grid" style="margin-top: 1.25rem;">
+        <div class="kpi-box">
+          <span class="kpi-label">Recorded Sales</span>
+          <strong class="kpi-value" id="kpi-total-revenue">PHP 0.00</strong>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Completed Services</span>
+          <strong class="kpi-value" id="kpi-completed-count">0</strong>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Average Sale</span>
+          <strong class="kpi-value" id="kpi-avg-sale">PHP 0.00</strong>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Top Service / Hairstyle</span>
+          <strong class="kpi-value kpi-value-sm" id="kpi-top-service">—</strong>
+        </div>
+      </div>
+
+      <div class="sub-divider">
+        <h3>Completed Services & Sales Breakdown</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Ref #</th>
+                <th>Client</th>
+                <th>Hairstyle / Service</th>
+                <th>Stylist</th>
+                <th>Status</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody id="sales-report-body">
+            </tbody>
+            <tfoot id="sales-report-foot">
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- [SPRINT 4 - ID 014] GENERATE REPORTS FOR CLIENT TRENDS AND PEAK HOURS -->
+    <section class="card" id="sec-trends-report">
+      <div class="card-header">
+        <span class="card-kicker">Operational Analytics</span>
+        <h2>Client Trends & Peak Hours Report</h2>
+        <p>Generate insights from client and appointment records to identify busy operating hours and booking patterns.</p>
+      </div>
+
+      <form id="trends-report-form" action="#" method="get">
+        <div class="notice" id="trends-report-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="trends-start-date">From Date</label>
+            <input type="date" id="trends-start-date" name="trends_start_date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="trends-end-date">To Date</label>
+            <input type="date" id="trends-end-date" name="trends_end_date" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: auto;">Generate Trends & Peak Hours Report</button>
+      </form>
+
+      <div id="trends-report-output" style="margin-top: 1.25rem;">
+        <div class="notice" id="peak-hours-banner"></div>
+
+        <div class="report-kpi-grid" id="trends-kpi-grid">
+          <div class="kpi-box">
+            <span class="kpi-label">Peak Operating Hour(s)</span>
+            <strong class="kpi-value kpi-value-sm" id="kpi-peak-hour">—</strong>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">Active Clients</span>
+            <strong class="kpi-value" id="kpi-unique-clients">0</strong>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">New vs. Returning</span>
+            <strong class="kpi-value kpi-value-sm" id="kpi-client-retention">—</strong>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">Busiest Day</span>
+            <strong class="kpi-value kpi-value-sm" id="kpi-busiest-day">—</strong>
+          </div>
+        </div>
+
+        <div class="sub-divider">
+          <h3>Hourly Traffic & Peak Operating Hours</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Operating Hour</th>
+                  <th>Bookings / Clients</th>
+                  <th>Traffic Distribution</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="peak-hours-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-2 sub-divider">
+          <div>
+            <h3>Most Requested Hairstyles & Services</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hairstyle / Service</th>
+                    <th>Requests</th>
+                    <th>Share</th>
+                  </tr>
+                </thead>
+                <tbody id="trends-styles-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3>Client Profile & Visit Trends</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Trend Metric</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="trends-insights-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- [SPRINT 1 - ID 003 & SPRINT 2 - ID 005] WALK-IN SERVICES & PRICES MODAL -->
+  <div class="modal-backdrop" id="walkin-services-modal" role="dialog" aria-modal="true" aria-labelledby="walkin-services-title" hidden>
+    <div class="modal-dialog modal-dialog-wide">
+      <div class="modal-top">
+        <div>
+          <span class="card-kicker">Salon Catalog</span>
+          <h2 id="walkin-services-title">Services &amp; Prices</h2>
+          <p class="modal-subtitle">Browse available hairstyles, estimated durations, and prices. Click a card to select it for the walk-in client.</p>
+        </div>
+        <button type="button" class="modal-close" id="close-walkin-services-modal" aria-label="Close services window">&times;</button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="walkin-hs-category">Category</label>
+          <select id="walkin-hs-category">
+            <option value="">All Categories</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others (All)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="walkin-hs-length">Preferred Hair Length</label>
+          <select id="walkin-hs-length">
+            <option value="Any">No preference</option>
+            <option value="Short">Short</option>
+            <option value="Medium">Medium</option>
+            <option value="Long">Long</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="action-group">
+        <button type="button" class="btn btn-primary btn-sm" style="width: auto;" id="walkin-hs-popular-btn">Sort by Popular</button>
+        <button type="button" class="btn btn-outline btn-sm" id="walkin-hs-show-all-btn">Show All</button>
+      </div>
+
+      <div class="style-grid" id="walkin-hs-results"></div>
+      <div class="pagination-bar" id="walkin-hs-pagination"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Maquillage Salon - Administration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="brand-lockup">
+      <div class="nav-monogram">LM</div>
+      <div class="brand">
+        Le Maquillage Salon
+        <span>Administration</span>
+      </div>
+    </div>
+    <div class="nav-user">
+      <span class="nav-username">Salon Admin</span>
+      <span class="role-tag">Admin</span>
+      <a href="index.html" class="btn btn-outline">Log Out</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ADMIN BANNER & QUICK NAVIGATION -->
+    <section class="portal-hero">
+      <div class="portal-hero-text">
+        <span class="portal-eyebrow">Salon Administration</span>
+        <h1>Accounts & Access</h1>
+        <p>Keep user account details accurate, control who can log in, and create accounts for your receptionists and stylists.</p>
+      </div>
+      <nav class="portal-nav-pills" aria-label="Admin sections">
+        <a href="#sec-accounts" class="nav-pill">User Accounts</a>
+        <a href="#sec-add-staff" class="nav-pill">Add Staff Account</a>
+      </nav>
+    </section>
+
+    <!-- [SPRINT 4 - ID 026] VIEW AND MODIFY OTHER USERS' ACCOUNTS -->
+    <section class="card" id="sec-accounts">
+      <div class="card-header">
+        <span class="card-kicker">Account Directory</span>
+        <h2>User Accounts</h2>
+        <p id="account-counts"></p>
+      </div>
+
+      <div class="notice">
+        <strong>What you can do:</strong> update contact details and active status of client, receptionist, and stylist accounts, and set a new temporary password.
+        Usernames and roles stay fixed, and admin accounts are view-only.
+      </div>
+
+      <div class="form-row" style="margin-bottom: 1rem;">
+        <div class="form-group">
+          <label for="account-search">Search Accounts</label>
+          <input type="search" id="account-search" placeholder="Name, username, email, or phone" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="account-role-filter">Role</label>
+          <select id="account-role-filter">
+            <option value="">All roles</option>
+            <option value="client">Clients</option>
+            <option value="receptionist">Receptionists</option>
+            <option value="stylist">Stylists</option>
+            <option value="admin">Admins</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="account-status-filter">Status</label>
+          <select id="account-status-filter">
+            <option value="">Active and inactive</option>
+            <option value="active">Active only</option>
+            <option value="inactive">Inactive only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="notice" id="account-feedback" style="display: none;"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Account</th>
+            </tr>
+          </thead>
+          <tbody id="account-list-body">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Selected account -->
+      <div class="sub-divider" id="account-panel" style="display: none;">
+        <h3 id="account-panel-title">Manage account</h3>
+        <p id="account-panel-note" style="font-size: 0.88rem; margin-bottom: 1rem;"></p>
+
+        <form id="account-edit-form" action="#" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="acc-fullname">Full Name</label>
+              <input type="text" id="acc-fullname" maxlength="150">
+            </div>
+            <div class="form-group">
+              <label for="acc-username">Username</label>
+              <input type="text" id="acc-username" readonly>
+            </div>
+            <div class="form-group">
+              <label for="acc-role">Role</label>
+              <input type="text" id="acc-role" readonly>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="acc-email">Email Address</label>
+              <input type="text" id="acc-email">
+            </div>
+            <div class="form-group">
+              <label for="acc-phone">Phone Number</label>
+              <input type="text" id="acc-phone">
+            </div>
+            <div class="form-group">
+              <label for="acc-status">Account Status</label>
+              <select id="acc-status">
+                <option value="active">Active (can log in)</option>
+                <option value="inactive">Inactive (cannot log in)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="action-group">
+            <button type="submit" class="btn btn-primary" style="width: auto;" id="acc-save">Save Changes</button>
+            <button type="button" class="btn btn-outline" id="acc-close">Close</button>
+          </div>
+        </form>
+
+        <div class="sub-divider">
+          <h3>Set a New Temporary Password</h3>
+          <form id="account-password-form" action="#" method="post" autocomplete="off">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="acc-newpass">New Password</label>
+                <input type="password" id="acc-newpass" autocomplete="new-password" placeholder="At least 6 characters">
+              </div>
+              <div class="form-group">
+                <label for="acc-confirmpass">Confirm Password</label>
+                <input type="password" id="acc-confirmpass" autocomplete="new-password">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline">Set Password</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- [SPRINT 4 - ID 026] ADD A STAFF ACCOUNT -->
+    <section class="card" id="sec-add-staff">
+      <div class="card-header">
+        <span class="card-kicker">New Team Member</span>
+        <h2>Add Staff Account</h2>
+        <p>Create a receptionist or stylist account. They can log in right away with the temporary password you set.</p>
+      </div>
+
+      <form id="staff-add-form" action="#" method="post" autocomplete="off">
+        <div class="notice" id="staff-add-feedback" style="display: none;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="staff-fullname">Full Name</label>
+            <input type="text" id="staff-fullname" maxlength="150" required>
+          </div>
+          <div class="form-group">
+            <label for="staff-username">Username</label>
+            <input type="text" id="staff-username" maxlength="30" required>
+          </div>
+          <div class="form-group">
+            <label for="staff-role">Role</label>
+            <select id="staff-role" required>
+              <option value="">-- Choose a role --</option>
+              <option value="receptionist">Receptionist</option>
+              <option value="stylist">Stylist</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="staff-email">Email Address</label>
+            <input type="email" id="staff-email" required>
+          </div>
+          <div class="form-group">
+            <label for="staff-phone">Phone Number</label>
+            <input type="tel" id="staff-phone" required>
+          </div>
+          <div class="form-group">
+            <label for="staff-password">Temporary Password</label>
+            <input type="password" id="staff-password" autocomplete="new-password" placeholder="At least 6 characters" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
