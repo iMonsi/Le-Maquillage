@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Maquillage Salon - Stylist Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="sty-shell-body">
+
+  <div class="sty-app">
+    <!-- LEFT SIDEBAR (ONE-WORD TABS) -->
+    <aside class="sty-sidebar" id="sty-sidebar" aria-label="Stylist navigation">
+      <div class="sty-sidebar-top">
+        <a href="#dashboard" class="sty-brand" data-sty-tab="dashboard" title="Le Maquillage Salon">
+          <div class="sty-brand-mark">LM</div>
+          <div class="sty-brand-text">
+            <strong>Le Maquillage</strong>
+            <span>Artistry Studio</span>
+          </div>
+        </a>
+        <button type="button" class="sty-sidebar-close" id="sty-sidebar-close" aria-label="Close navigation">&times;</button>
+      </div>
+
+      <nav class="sty-nav">
+        <div class="sty-nav-group">
+          <span class="sty-nav-heading">CHAIR</span>
+          <button type="button" class="sty-nav-item is-active" data-sty-tab="dashboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button type="button" class="sty-nav-item" data-sty-tab="appointments">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Appointments</span>
+          </button>
+          <button type="button" class="sty-nav-item" data-sty-tab="products">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v4l3 4v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9l3-4V3z"/><line x1="6" y1="13" x2="18" y2="13"/></svg>
+            <span>Products</span>
+          </button>
+        </div>
+
+        <div class="sty-nav-group">
+          <span class="sty-nav-heading">ARTISTRY</span>
+          <button type="button" class="sty-nav-item" data-sty-tab="clients">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Clients</span>
+          </button>
+          <button type="button" class="sty-nav-item" data-sty-tab="gallery">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Gallery</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="sty-sidebar-footer">
+        <a href="index.html" class="sty-nav-item sty-logout-link" id="sty-logout-btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN STUDIO WORKSPACE -->
+    <div class="sty-workspace">
+      <!-- TOP UTILITY BAR -->
+      <header class="sty-topbar">
+        <div class="sty-topbar-left">
+          <button type="button" class="sty-menu-btn" id="sty-menu-btn" aria-label="Open menu">&#9776;</button>
+          <div class="sty-search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="sty-global-search" placeholder="Find a client profile or formula note..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="sty-topbar-right">
+          <span class="sty-shift-pill" id="sty-topbar-shift">Shift: 09:00 – 18:00</span>
+          <div class="nav-user sty-profile-chip">
+            <div class="sty-profile-meta">
+              <span class="nav-username">Lead Stylist</span>
+              <small class="sty-profile-role">Stylist</small>
+            </div>
+            <div class="sty-avatar-circle" id="sty-user-initials">LS</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN PANEL CONTENT -->
+      <main class="sty-main">
+
+        <!-- ==============================================================
+             TAB 1: STYLIST DASHBOARD (ARTISTRY & CHAIR STUDIO LAYOUT)
+             ============================================================== -->
+        <section class="sty-panel is-active" id="sty-view-dashboard" data-sty-panel="dashboard">
+
+          <!-- EDITORIAL STUDIO HEADER BANNER -->
+          <div class="sty-hero-banner">
+            <div class="sty-hero-copy">
+              <span class="sty-hero-eyebrow">Chair &amp; Consultation Studio</span>
+              <h1 id="sty-banner-heading">Welcome back, Lead Stylist</h1>
+              <p id="sty-banner-sub">Review your chair lineup, prepare tailored face-shape consultations, log backbar product usage, and curate your lookbook.</p>
+            </div>
+            <div class="sty-hero-actions">
+              <button type="button" class="sty-hero-btn sty-hero-btn-solid" data-sty-jump="products">+ Log Product Usage</button>
+              <button type="button" class="sty-hero-btn sty-hero-btn-ghost" data-sty-jump="gallery">Upload Before &amp; After</button>
+            </div>
+          </div>
+
+          <!-- 4-CARD STUDIO KPI RIBBON -->
+          <div class="sty-stats-ribbon">
+            <article class="sty-stat-card">
+              <span class="sty-stat-label">Today's Chair Sessions</span>
+              <strong class="sty-stat-value" id="sty-kpi-today">0</strong>
+              <span class="sty-stat-sub" id="sty-kpi-today-sub">No sessions scheduled today</span>
+            </article>
+
+            <article class="sty-stat-card">
+              <span class="sty-stat-label">Next Client in Chair</span>
+              <strong class="sty-stat-value sty-stat-value-sm" id="sty-kpi-next">Open Chair</strong>
+              <span class="sty-stat-sub" id="sty-kpi-next-sub">Ready for upcoming bookings</span>
+            </article>
+
+            <article class="sty-stat-card">
+              <span class="sty-stat-label">Assigned Clients</span>
+              <strong class="sty-stat-value" id="sty-kpi-clients">0</strong>
+              <span class="sty-stat-sub">Active consultation profiles</span>
+            </article>
+
+            <article class="sty-stat-card">
+              <span class="sty-stat-label">Lookbook Photos</span>
+              <strong class="sty-stat-value" id="sty-kpi-photos">0</strong>
+              <span class="sty-stat-sub">Before &amp; after transformations</span>
+            </article>
+          </div>
+
+          <!-- ASYMMETRIC 2-ZONE STUDIO WORKSPACE -->
+          <div class="sty-studio-grid">
+
+            <!-- LEFT ZONE: VERTICAL CHAIR TIMELINE + LOOKBOOK STRIP -->
+            <div class="sty-studio-primary">
+              <article class="sty-surface-card">
+                <div class="sty-surface-head">
+                  <div>
+                    <span class="card-kicker">Chair Lineup</span>
+                    <h2>Today's Session Timeline</h2>
+                  </div>
+                  <button type="button" class="btn btn-outline btn-sm" data-sty-jump="appointments">Full Schedule</button>
+                </div>
+                <div class="sty-timeline" id="sty-timeline-list"></div>
+              </article>
+
+              <article class="sty-surface-card">
+                <div class="sty-surface-head">
+                  <div>
+                    <span class="card-kicker">Portfolio</span>
+                    <h2>Recent Before &amp; After Lookbook</h2>
+                  </div>
+                  <button type="button" class="btn btn-outline btn-sm" data-sty-jump="gallery">Manage Gallery</button>
+                </div>
+                <div class="sty-lookbook-strip" id="sty-dash-lookbook"></div>
+              </article>
+            </div>
+
+            <!-- RIGHT ZONE: CLIENT CONSULTATION SPOTLIGHT + CHAIR SUPPLY WATCH -->
+            <div class="sty-studio-aside">
+              <article class="sty-surface-card sty-spotlight-card">
+                <div class="sty-surface-head">
+                  <div>
+                    <span class="card-kicker">Consultation Prep</span>
+                    <h2>Client Style Spotlight</h2>
+                  </div>
+                </div>
+                <div id="sty-spotlight-body"></div>
+              </article>
+
+              <article class="sty-surface-card">
+                <div class="sty-surface-head">
+                  <div>
+                    <span class="card-kicker">Backbar &amp; Stock</span>
+                    <h2>Chair Supply Watch</h2>
+                  </div>
+                  <button type="button" class="btn btn-outline btn-sm" data-sty-jump="products">Record Usage</button>
+                </div>
+                <div id="sty-supply-watch"></div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             TAB 2: MY ASSIGNED APPOINTMENTS
+             ============================================================== -->
+        <section class="card sty-panel" id="sec-assigned" data-sty-panel="appointments" hidden>
+          <div class="card-header">
+            <span class="card-kicker">Chair Schedule</span>
+            <h2>My Assigned Appointments</h2>
+            <p>Prepare for upcoming client sessions and review your active shift hours.</p>
+          </div>
+
+          <div class="notice" id="stylist-shift-notice">
+            <strong>Your Current Shift:</strong> 09:00 AM – 06:00 PM &nbsp;|&nbsp;
+            <strong>Scheduled Break:</strong> 12:00 PM – 01:00 PM
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Client Name</th>
+                  <th>Service</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="stylist-appointments-body">
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             TAB 3: RECORD PRODUCT USAGE
+             ============================================================== -->
+        <section class="card sty-panel" id="sec-usage" data-sty-panel="products" hidden>
+          <div class="card-header">
+            <span class="card-kicker">Salon Supplies</span>
+            <h2>Record Product Usage</h2>
+            <p>Add every product used during a service, one line per product. Stock quantities update right away.</p>
+          </div>
+
+          <form id="usage-form" action="#" method="post">
+            <div class="notice" id="usage-feedback" style="display: none;"></div>
+
+            <div class="form-group">
+              <label for="usage-service">Service Performed</label>
+              <select id="usage-service" name="service" required>
+                <option value="">-- Choose a service you performed --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Products Used</label>
+              <div id="usage-items"></div>
+              <button type="button" class="btn btn-outline usage-add" id="usage-add-row">+ Add another product</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Record Product Usage</button>
+          </form>
+
+          <div class="sub-divider">
+            <h3>My Recent Usage Records</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Recorded</th>
+                    <th>Client &amp; Service</th>
+                    <th>Products Used</th>
+                  </tr>
+                </thead>
+                <tbody id="usage-log-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             TAB 4: CLIENT PROFILES & CONSULTATION NOTES
+             ============================================================== -->
+        <section class="card sty-panel" id="sec-client-profiles" data-sty-panel="clients" hidden>
+          <div class="card-header">
+            <span class="card-kicker">Consultation Records</span>
+            <h2>Client Profiles</h2>
+            <p id="profiles-scope"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-search">Search Clients</label>
+            <input type="search" id="client-search" placeholder="Name, phone number, email, or username" autocomplete="off">
+          </div>
+
+          <div class="notice" id="profile-feedback" style="display: none;"></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Completed Visits</th>
+                  <th>Profile</th>
+                </tr>
+              </thead>
+              <tbody id="client-results-body">
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-divider" id="client-profile-panel" style="display: none;">
+            <h3 id="profile-title">Client Profile</h3>
+
+            <div class="notice" id="pf-hairstyle" style="display: none;"></div>
+
+            <form id="client-profile-form" action="#" method="post">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-firstname">First Name</label>
+                  <input type="text" id="pf-firstname" name="first_name" maxlength="75" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="pf-lastname">Last Name</label>
+                  <input type="text" id="pf-lastname" name="last_name" maxlength="75" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="pf-phone">Phone Number</label>
+                  <input type="text" id="pf-phone" name="phone">
+                </div>
+                <div class="form-group">
+                  <label for="pf-email">Email Address</label>
+                  <input type="text" id="pf-email" name="email">
+                </div>
+                <div class="form-group">
+                  <label for="pf-faceshape">Face Shape</label>
+                  <select id="pf-faceshape" name="face_shape"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="pf-preferences">Hairstyle Preferences</label>
+                <textarea id="pf-preferences" name="hairstyle_preferences" maxlength="500"></textarea>
+              </div>
+
+              <div class="action-group">
+                <button type="submit" class="btn btn-primary" style="width: auto;">Save Changes</button>
+                <button type="button" class="btn btn-outline" id="pf-close">Close Profile</button>
+              </div>
+            </form>
+
+            <div class="sub-divider">
+              <h3>Service &amp; Appointment History</h3>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Service</th>
+                      <th>Stylist</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="client-history-body">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             TAB 5: BEFORE & AFTER GALLERY
+             ============================================================== -->
+        <section class="card sty-panel" id="sec-gallery" data-sty-panel="gallery" hidden>
+          <div class="card-header">
+            <span class="card-kicker">Portfolio &amp; Results</span>
+            <h2>Before &amp; After Gallery</h2>
+            <p>Upload photos of your clients' hair services (JPG, PNG, or WebP, up to 5 MB). Photos are resized automatically.</p>
+          </div>
+
+          <form id="gallery-form" action="#" method="post">
+            <div class="notice" id="gallery-feedback" style="display: none;"></div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gallery-client">Client</label>
+                <select id="gallery-client" name="client_id" required>
+                  <option value="">-- Choose a client --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="gallery-type">Photo Type</label>
+                <select id="gallery-type" name="photo_type" required>
+                  <option value="">-- Before or After --</option>
+                  <option value="Before">Before</option>
+                  <option value="After">After</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gallery-file">Photo</label>
+                <input type="file" id="gallery-file" name="photo" accept="image/jpeg,image/png,image/webp" required>
+              </div>
+
+              <div class="form-group">
+                <label for="gallery-caption">Caption (optional)</label>
+                <input type="text" id="gallery-caption" name="caption" maxlength="120" placeholder="e.g., Chestnut balayage">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload Photo</button>
+          </form>
+
+          <div class="sub-divider">
+            <h3>Photos I Uploaded</h3>
+
+            <div class="form-row" style="margin-bottom: 1rem;">
+              <div class="form-group">
+                <label for="gallery-filter">Show photos for</label>
+                <select id="gallery-filter">
+                  <option value="">All my clients</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Client</th>
+                    <th>Type</th>
+                    <th>Caption</th>
+                    <th>Uploaded</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="gallery-body">
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Edit panel (shown when "Edit" is clicked) -->
+            <div id="gallery-editor" class="notice" style="display: none; margin-top: 1rem;">
+              <strong>Edit photo:</strong> <span id="ge-info"></span>
+              <div class="form-row" style="margin-top: 0.75rem;">
+                <div class="form-group">
+                  <label for="ge-type">Photo Type</label>
+                  <select id="ge-type">
+                    <option value="Before">Before</option>
+                    <option value="After">After</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ge-caption">Caption</label>
+                  <input type="text" id="ge-caption" maxlength="120">
+                </div>
+                <div class="form-group">
+                  <label for="ge-file">Replace photo (optional)</label>
+                  <input type="file" id="ge-file" accept="image/jpeg,image/png,image/webp">
+                </div>
+              </div>
+              <div class="action-group">
+                <button type="button" class="btn btn-primary" style="width: auto;" id="ge-save">Save Changes</button>
+                <button type="button" class="btn btn-outline" id="ge-cancel">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
